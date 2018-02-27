@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
@@ -35,50 +36,19 @@ namespace MapReduceTest
         }
 
         public string PrettyPrint() =>
-            RDate.ToLongDateString() + ": Location - " + City + ", " + (!string.IsNullOrEmpty(State) ? (State + ", " + Country) : (Country)) + "---" + TemperatureCelsius + "C/" + TemperatureFarenheit + "F\n";
+            RDate.ToLongDateString() + ": Location - " + City + ", " + (!string.IsNullOrEmpty(State) ? (State + ", " + Country) : (Country)) + "--- " + TemperatureCelsius + "C/" + TemperatureFarenheit + "F\n";
 
-        public static async void MakeRandomWeatherDatabasesAsync(int numberDatabases, int numberOfCities)
+        public static void MakeRandomWeatherDatabases(int numberDatabases=3, int numberOfCities=30)
         {
-            await Task.Run(new Action(() =>
-            {
+            List<Task> tasks = new List<Task>();
+            for (int i = 0; i < numberDatabases; i++)
+                tasks.Add(new Task(new Action(() => { MakeRecords(numberOfCities, @"wr" + numberDatabases + ".json"); })));
 
-            }))
+            foreach (Task t in tasks)
+                t.Start();
 
-
-            Random rand = new Random();
-            List<WeatherRecord> wr1 = new List<WeatherRecord>();
-            List<WeatherRecord> wr2 = new List<WeatherRecord>();
-            List<WeatherRecord> wr3 = new List<WeatherRecord>();
-
-            
-
-            for (int i = 0; i < 30; i++)
-            {
-                string[] parsed = Values.CityStateCountry[rand.Next(Values.CityStateCountry.Length)].Split(',');
-                wr2.Add(
-                    new WeatherRecord(
-                        new DateTime(rand.Next(1980, 2018), rand.Next(1, 12), rand.Next(1, 28)),
-                        rand.Next(CelsiusRange.Lowest, CelsiusRange.Highest),
-                        parsed[0], parsed[2], parsed[1])
-                        );
-            }
-
-            for (int i = 0; i < 30; i++)
-            {
-                string[] parsed = Values.CityStateCountry[rand.Next(Values.CityStateCountry.Length)].Split(',');
-                wr3.Add(
-                    new WeatherRecord(
-                        new DateTime(rand.Next(1980, 2018), rand.Next(1, 12), rand.Next(1, 28)),
-                        rand.Next(CelsiusRange.Lowest, CelsiusRange.Highest),
-                        parsed[0], parsed[2], parsed[1])
-                        );
-            }
-
-            using (StreamWriter sw = new StreamWriter(@".\wr2.json"))
-                sw.Write(JsonConvert.SerializeObject(wr2));
-
-            using (StreamWriter sw = new StreamWriter(@".\wr3.json"))
-                sw.Write(JsonConvert.SerializeObject(wr3));
+            while (tasks.Where(t => t.IsCompleted).Count() < tasks.Count)
+                Console.WriteLine("Building databases...");
 
             return;
         }
