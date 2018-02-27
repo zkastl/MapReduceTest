@@ -49,6 +49,70 @@ namespace MapReduceTest
             "Yellow",
             "Champaine"
         };
+
+        public static string[] CityStateCountry = new string[]
+        {
+            "Los Angeles,CA,US",
+            "Salt Lake City,UT,US",
+            "Oklahoma City,OK,US",
+
+            "Orlando,FL,US",
+            "Columubs,OH,US",
+            "Honolulu,HI,US",
+
+            "Las Vegas,NV,US",
+            "New York City,NY,US",
+            "Seattle,WA,US",
+
+            "Birmingham,AL,US",
+            "Minot,ND,US",
+            "Tulsa,OK,US",
+
+            "Tucson,AZ,US",
+            "Burlington,OK,US",
+            "Fresno,CA,US",
+
+            "Chicago,IL,US",
+            "Omaha,NB,US",
+            "Lubbock,TX,US",
+
+            "Philadelphia,PA,US",
+            "Miami,FL,US",
+            "New Orleans,LA,US",
+
+            "Phoenix,AZ,US",
+            "Lincoln,NB,US",
+            "Atlanta,GA,US",
+
+            "Boston,MA,US",
+            "Palmdale,CA,US",
+            "Cheyenne,WY,US",
+
+            "Kansas City,MO,US",
+            "Lexington,KY,US",
+            "Virginia Beach,VA,US",
+
+            "Indianapolis,IN,US",
+            "Madison,WI,US",
+            "Akron,OH,US",
+
+            "Cancun,,MX",
+            "London,,UK",
+            "Vancouver,BC,CA",
+            "Sochi,,RU",
+            "Paris,,FR",
+            "Sydney,NSW,AU",
+            "Pyeongchang,,SK",
+            "Edinburgh,,UK",
+            "Rio de Janerio,,BR",
+            "Reykjavik,,IS"
+        };
+    }
+
+    public static class CelsiusRange
+    {
+        public static int Lowest = -89;
+        public static int Highest = 59;
     }
 
     public enum BusyStatus

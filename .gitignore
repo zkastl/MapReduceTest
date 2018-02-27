@@ -259,3 +259,6 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/MapReduceTest/wr3.json
+/MapReduceTest/wr2.json
+/MapReduceTest/wr1.json
