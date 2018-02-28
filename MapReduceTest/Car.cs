@@ -38,7 +38,7 @@ namespace MapReduceTest
         public string PrettyPrint() =>
             Color + ", " + Year + " " + Make + " " + Model + " with " + Miles + " miles";
 
-        public static void MakeRandomCarDatabases()
+        public static void MakeRandomDatabase()
         {
             Random rand = new Random();
             List<Car> cars1 = new List<Car>();

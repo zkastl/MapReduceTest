@@ -69,7 +69,7 @@ namespace MapReduceTest
 
             // Create a weather record database if arguments are passed
             if (args?.Length > 0 && args[0] == "--create")
-                Car.MakeRandomCarDatabases();
+                Car.MakeRandomDatabase();
 
             // Pull the base cars from the database and map them over the predicate.
             Car[] cars1 = GetDataFromFile<Car>(@".\Cars1.json").Where(overHundredThousand).ToArray();

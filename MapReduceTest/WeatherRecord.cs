@@ -55,7 +55,7 @@ namespace MapReduceTest
             return;
         }
 
-        private static void MakeRecords(int numberOfCities, string fileName)
+        private static void MakeRecords(int numberOfRecords, string fileName)
         {
             Random rand = new Random();
             List<WeatherRecord> wr1 = new List<WeatherRecord>();
