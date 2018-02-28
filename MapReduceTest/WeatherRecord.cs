@@ -42,13 +42,15 @@ namespace MapReduceTest
         {
             List<Task> tasks = new List<Task>();
             for (int i = 0; i < numberDatabases; i++)
-                tasks.Add(new Task(new Action(() => { MakeRecords(numberOfCities, @"wr" + numberDatabases + ".json"); })));
+            {
+                string d = (i + 1).ToString();
+                tasks.Add(new Task(new Action(() => { MakeRecords(numberOfCities, @"wr" + d.ToString() + ".json"); })));
+            }
 
             foreach (Task t in tasks)
                 t.Start();
 
-            while (tasks.Where(t => t.IsCompleted).Count() < tasks.Count)
-                Console.WriteLine("Building databases...");
+            while (tasks.Where(t => t.IsCompleted).Count() < tasks.Count) continue;
 
             return;
         }
@@ -56,20 +58,20 @@ namespace MapReduceTest
         private static void MakeRecords(int numberOfCities, string fileName)
         {
             Random rand = new Random();
+            List<WeatherRecord> wr1 = new List<WeatherRecord>();
             for (int i = 0; i < 30; i++)
             {
-                List<WeatherRecord> wr1 = new List<WeatherRecord>();
                 string[] parsed = Values.CityStateCountry[rand.Next(Values.CityStateCountry.Length)].Split(',');
                 wr1.Add(
                     new WeatherRecord(
                         new DateTime(rand.Next(1980, 2018), rand.Next(1, 12), rand.Next(1, 28)),
                         rand.Next(CelsiusRange.Lowest, CelsiusRange.Highest),
                         parsed[0], parsed[2], parsed[1])
-                        );
-
-                using (StreamWriter sw = new StreamWriter(fileName))
-                    sw.Write(JsonConvert.SerializeObject(wr1));
+                );
             }
+
+            using (StreamWriter sw = new StreamWriter(fileName))
+                sw.Write(JsonConvert.SerializeObject(wr1));
 
         }
     }

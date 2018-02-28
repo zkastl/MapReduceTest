@@ -13,7 +13,7 @@ namespace MapReduceTest
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            CarsProgram(args);
+            //CarsProgram(args);
             WeatherProgram(args);
 
             Console.ReadKey();
@@ -34,7 +34,7 @@ namespace MapReduceTest
             WeatherRecord[] db3 = GetDataFromFile<WeatherRecord>(@".\wr3.json").Where(belowFreezing).ToArray();
 
             // Reduce the cars back to a single collection and display to the user.
-            WeatherRecord[] records = db1.Union(db2).Union(db3).ToArray();
+            WeatherRecord[] records = db1.Union(db2).Union(db3).OrderBy(x => x.RDate).ToArray();
             Console.WriteLine("These cities were recorded below freezing (0C):");
             foreach (WeatherRecord r in records)
                 Console.WriteLine("    " + r.PrettyPrint());
@@ -64,7 +64,6 @@ namespace MapReduceTest
         /// <param name="args"></param>
         private static void CarsProgram(string[] args)
         {
-
             // Create a map function to only select cars over 100000 miles. 
             Func<Car, bool> overHundredThousand = new Func<Car, bool>(x => x.Miles > 100000);
 
